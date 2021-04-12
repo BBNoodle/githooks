@@ -11,6 +11,6 @@ Portions Copyright (c) 2021 Emre Hasegeli
 
 from sys import exit
 
-from githooks.pre_receive import main
+from githooks import main
 
 exit(main())

@@ -2,9 +2,35 @@
 # @Time : 4/8/21 6:12 PM 
 # @Author : mxt
 # @File : __init__.py.py
-from fileinput import input
+import os
+import yaml
 from sys import stdout, stderr
 from traceback import print_exc
+
+from githooks.default import DEFAULT_CONFIG
+from githooks.check import CheckState
+from githooks.check import BaseCheck
+from githooks.config import Config
+
+
+class Runner(object):
+    def __init__(self):
+        self.default_path = "/var/opt/githooks/default.yml"
+        self.config = Config(self.get_configuration())
+
+    def get_configuration(self):
+        default_exists = os.path.exists(self.default_path)
+        if default_exists:
+            with open(self.default_path, 'r', encoding='utf-8') as cfg:
+                content = cfg.read()
+                return yaml.load(content)
+        else:
+            return DEFAULT_CONFIG
+
+    def run(self):
+        a = self.config.get("dev.dev_mode")
+        return 0
+
 
 def main():
     try:
