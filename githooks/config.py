@@ -1,23 +1,23 @@
-# -*- coding: utf-8 -*- 
-# @Time : 4/12/21 4:55 PM 
-# @Author : mxt
-# @File : config.py
+"""Configurations
 
+Copyright (c) 2021 Scott Lau
+"""
 
-class Config:
-    def __init__(self, config: dict):
-        self.result = dict()
-        self.config = config
-        self.father2son(config)
+from sys import stdout, stderr
+from traceback import print_exc
 
-    def father2son(self, config):
-        for k1, v1 in config.items():
-            if isinstance(v1, dict):
-                for k2, v2 in v1.items():
-                    key = f"{k1}.{k2}"
-                    self.result.setdefault(key, v2)
-            else:
-                self.result.setdefault(k1, v1)
+from scconfig.config import Config
 
-    def get(self, item):
-        return self.result.get(item)
+from githooks.base_check import BaseCheck
+from githooks.default import DEFAULT_CONFIG
+
+# =========================================
+#       INSTANCES
+# --------------------------------------
+try:
+    config = Config.create(project_name="sc-githooks", defaults=DEFAULT_CONFIG)
+except Exception as e:
+    stdout.flush()
+    print(file=stderr)
+    print('{} failed to read configuration: {}'.format(BaseCheck.ERROR_MSG_PREFIX, e), file=stderr)
+    print_exc()

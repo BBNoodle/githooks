@@ -1,8 +1,11 @@
-# -*- coding: utf-8 -*- 
-# @Time : 4/8/21 6:19 PM 
-# @Author : mxt
-# @File : check.py
+"""sc-githooks - The base check class
+
+Copyright (c) 2021 Scott Lau
+Portions Copyright (c) 2021 InnoGames GmbH
+Portions Copyright (c) 2021 Emre Hasegeli
+"""
 import datetime as dt
+
 
 from enum import IntEnum
 
