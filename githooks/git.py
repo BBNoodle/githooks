@@ -254,6 +254,7 @@ class CommittedFile(object):
         return self.path.rsplit('/', 1)[-1]
 
     def get_file_size(self):
+        print(git_exe_path, self.object_id)
         output = check_output([
             git_exe_path,
             'cat-file',
