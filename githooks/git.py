@@ -9,7 +9,9 @@ from os.path import isabs, join as joinpath, normpath
 from subprocess import check_output
 
 from githooks.utils import get_exe_path, get_extension, decode_str
+from githooks.base_check import Logging
 
+logging = Logging()
 git_exe_path = get_exe_path('git')
 
 
@@ -254,13 +256,16 @@ class CommittedFile(object):
         return self.path.rsplit('/', 1)[-1]
 
     def get_file_size(self):
-        print(git_exe_path, self.object_id)
-        output = check_output([
-            git_exe_path,
-            'cat-file',
-            '-s',  # show file size
-            self.object_id,
-        ])
+        try:
+            output = check_output([
+                git_exe_path,
+                'cat-file',
+                '-s',  # show file size
+                self.object_id,
+            ])
+        except Exception as e:
+            logging.write("get_file_size Error: %s" % e)
+            output = 0
         return int(output)
 
     def get_extension(self):

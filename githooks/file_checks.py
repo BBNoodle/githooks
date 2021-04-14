@@ -57,13 +57,14 @@ class CommittedFileExtensionCheck(CommittedFileCheck):
         filename = self.committed_file.get_filename()
         if filename in legal_binary_filenames_list:
             return
-        yield (
-            Severity.ERROR,
-            '提交 {} 的文件 {} 在不允许的提交文件后缀名清单中 {}'.format(
-                self.committed_file.commit,
-                self.committed_file.path,
-                illegal_suffixes_list)
-        )
         extension = self.committed_file.get_extension()
         if extension in illegal_suffixes_list:
+            yield (
+                Severity.ERROR,
+                '提交 {} 的文件 {} 在不允许的提交文件后缀名清单中 {}'.format(
+                    self.committed_file.commit,
+                    self.committed_file.path,
+                    illegal_suffixes_list)
+            )
+        else:
             pass

@@ -74,7 +74,7 @@ class BaseCheck:
     preferred_checks = []
     state = CheckState.NEW
     ERROR_MSG_PREFIX = "GL-HOOK-ERR:"
-    NOW_TIME = dt.datetime.now().strftime('%Y-%m%d')
+    NOW_TIME = dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
