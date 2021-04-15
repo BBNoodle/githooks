@@ -10,7 +10,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="xt-githooks",
-    version="0.2.3",
+    version="0.2.4",
     author="BBNoodle",
     author_email="1214403402@qq.com",
     description="Git pre-receive hook to check commits",

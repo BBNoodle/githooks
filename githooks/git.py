@@ -265,7 +265,7 @@ class CommittedFile(object):
             ])
         except Exception as e:
             logging.write("get_file_size Error: %s" % e)
-            output = 0
+            output = -1
         return int(output)
 
     def get_extension(self):

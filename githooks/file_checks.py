@@ -36,7 +36,14 @@ class CommittedFileSizeCheck(CommittedFileCheck):
     """Special check for committed file size"""
 
     def get_problems(self):
-        if self.committed_file.get_file_size() >= config.get("commit_check.commit_file_max_size"):
+        file_size = self.committed_file.get_file_size()
+        if file_size == -1:
+            yield (
+                Severity.ERROR,
+                '提交 {} 的文件 {} 无法识别大小'.format(
+                    self.committed_file.commit, self.committed_file.path)
+            )
+        if file_size >= config.get("commit_check.commit_file_max_size"):
             yield (
                 Severity.ERROR,
                 '提交 {} 的文件 {} 大小超过 {}, 即 {} MB'.format(
@@ -67,4 +74,4 @@ class CommittedFileExtensionCheck(CommittedFileCheck):
                     illegal_suffixes_list)
             )
         else:
-            pass
+            return
