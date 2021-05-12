@@ -36,17 +36,17 @@ checks = list()
 
 # Commit checks
 # 提交消息（包含标题）检查
-checks.append(CheckCommitMessage())
+# checks.append(CheckCommitMessage())
 # 提交标题检查
-checks.append(CheckCommitSummary())
+# checks.append(CheckCommitSummary())
 # # 文件路径检查
 # checks.append(CheckChangedFilePaths())
 
 # 检查二进制文件
-checks.append(CheckBinaryFiles())
+# checks.append(CheckBinaryFiles())
 
 # 检查文件后缀名
-checks.append(CommittedFileExtensionCheck())
+# checks.append(CommittedFileExtensionCheck())
 
 # 检查文件大小
 checks.append(CommittedFileSizeCheck())
