@@ -53,7 +53,7 @@ class Runner(object):
                 check.print_problems()
                 assert check.state >= CheckState.DONE
                 state = max(state, check.state)
-        return 2
+        return state
 
     def expand_checks(self, _checks):
         next_checks = []
