@@ -16,11 +16,11 @@ DEFAULT_CONFIG = {
         "commit_line_max_length": 80,
 
         # 二进制文件黑名单（逗号分隔的后缀名清单，无需带.，通过后缀名控制）
-        "binary_file_illegal_suffixes": "jar",
+        "binary_file_illegal_suffixes": "jar, doc, xls, xlsx, docx",
         # 二进制文件白名单（逗号分隔的区分大小写的文件名列表，这些二进制文件允许提交）
         "legal_binary_filenames": "gradle-wrapper.jar,maven-wrapper.jar",
 
-        # 提交文件最大大小(5MB)
+        # 提交文件最大大小(10MB)
         "commit_file_max_size": 10485760,
     }
 }
