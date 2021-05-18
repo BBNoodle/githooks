@@ -37,7 +37,9 @@ class CommittedFileSizeCheck(CommittedFileCheck):
 
     def get_problems(self):
         file_size = self.committed_file.get_file_size()
-        extension = self.committed_file.get_extension().replace('"', "").replace("'", "")
+        extension = self.committed_file.get_extension()
+        if isinstance(extension, str):
+            extension = extension.replace('"', "").replace("'", "")
         is_framework = self.committed_file.get_framework()
         if file_size == -1:
             yield (
