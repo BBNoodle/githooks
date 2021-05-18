@@ -37,13 +37,15 @@ class CommittedFileSizeCheck(CommittedFileCheck):
 
     def get_problems(self):
         file_size = self.committed_file.get_file_size()
+        extension = self.committed_file.get_extension()
         if file_size == -1:
             yield (
                 Severity.ERROR,
                 '提交 {} 的文件 {} 无法识别大小'.format(
                     self.committed_file.commit, self.committed_file.path)
             )
-        if file_size >= config.get("commit_check.commit_file_max_size"):
+        condition = False if extension in config.get("commit_check.binary_file_legitimate_suffixes") else True
+        if file_size >= config.get("commit_check.commit_file_max_size") and condition:
             yield (
                 Severity.ERROR,
                 '提交 {} 的文件 {} 大小超过 {}, 即 {} MB'.format(
