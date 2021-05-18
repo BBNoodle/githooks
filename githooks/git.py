@@ -255,6 +255,9 @@ class CommittedFile(object):
     def get_filename(self):
         return self.path.rsplit('/', 1)[-1]
 
+    def get_framework(self):
+        return False if '.framework' in self.path else True
+
     def get_file_size(self):
         try:
             output = check_output([
