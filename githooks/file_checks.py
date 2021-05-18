@@ -45,14 +45,15 @@ class CommittedFileSizeCheck(CommittedFileCheck):
                     self.committed_file.commit, self.committed_file.path)
             )
         condition = False if extension in config.get("commit_check.binary_file_legitimate_suffixes") else True
-        if file_size >= config.get("commit_check.commit_file_max_size") and condition:
-            yield (
-                Severity.ERROR,
-                '提交 {} 的文件 {} 大小超过 {}, 即 {} MB'.format(
-                    self.committed_file.commit, self.committed_file.path,
-                    config.get("commit_check.commit_file_max_size"),
-                    config.get("commit_check.commit_file_max_size") / 1024 / 1024)
-            )
+        if condition:
+            if file_size >= config.get("commit_check.commit_file_max_size") and condition:
+                yield (
+                    Severity.ERROR,
+                    '提交 {} 的文件 {} 大小超过 {}, 即 {} MB'.format(
+                        self.committed_file.commit, self.committed_file.path,
+                        config.get("commit_check.commit_file_max_size"),
+                        config.get("commit_check.commit_file_max_size") / 1024 / 1024)
+                )
 
 
 class CommittedFileExtensionCheck(CommittedFileCheck):
