@@ -39,6 +39,8 @@ class CommittedFileSizeCheck(CommittedFileCheck):
         file_size = self.committed_file.get_file_size()
         extension = self.committed_file.get_extension()
         is_framework = self.committed_file.get_framework()
+        path = self.committed_file.get_path()
+        print(f"extension: {extension}\nis_framework: {is_framework}\npath: {path}")
         if file_size == -1:
             yield (
                 Severity.ERROR,
