@@ -256,7 +256,7 @@ class CommittedFile(object):
         return self.path.rsplit('/', 1)[-1]
 
     def get_path(self):
-        return self.path
+        return self.path.rsplit('/', 1)[-1]
 
     def get_framework(self):
         return False if '.framework' in self.path else True
