@@ -40,23 +40,24 @@ class CommittedFileSizeCheck(CommittedFileCheck):
         extension = self.committed_file.get_extension()
         if isinstance(extension, str):
             extension = extension.replace('"', "").replace("'", "")
-        is_framework = self.committed_file.get_framework()
-        if file_size == -1:
+            not_ignore = False if extension in config.get("commit_check.binary_file_legitimate_suffixes") else True
+        else:
+            not_ignore = False
+        not_framework = self.committed_file.get_framework()
+        if not_ignore and file_size == -1:
             yield (
                 Severity.ERROR,
                 '提交 {} 的文件 {} 无法识别大小'.format(
                     self.committed_file.commit, self.committed_file.path)
             )
-        condition = False if extension in config.get("commit_check.binary_file_legitimate_suffixes") else True
-        if condition and is_framework:
-            if file_size >= config.get("commit_check.commit_file_max_size") and condition:
-                yield (
-                    Severity.ERROR,
-                    '提交 {} 的文件 {} 大小超过 {}, 即 {} MB'.format(
-                        self.committed_file.commit, self.committed_file.path,
-                        config.get("commit_check.commit_file_max_size"),
-                        config.get("commit_check.commit_file_max_size") / 1024 / 1024)
-                )
+        if not_ignore and not_framework and file_size >= config.get("commit_check.commit_file_max_size"):
+            yield (
+                Severity.ERROR,
+                '提交 {} 的文件 {} 大小超过 {}, 即 {} MB'.format(
+                    self.committed_file.commit, self.committed_file.path,
+                    config.get("commit_check.commit_file_max_size"),
+                    config.get("commit_check.commit_file_max_size") / 1024 / 1024)
+            )
 
 
 class CommittedFileExtensionCheck(CommittedFileCheck):
