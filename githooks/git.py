@@ -4,14 +4,13 @@ Copyright (c) 2021 Scott Lau
 Portions Copyright (c) 2021 InnoGames GmbH
 Portions Copyright (c) 2021 Emre Hasegeli
 """
+import logging
 
 from os.path import isabs, join as joinpath, normpath
 from subprocess import check_output
 
 from githooks.utils import get_exe_path, get_extension, decode_str
-from githooks.base_check import Logging
 
-logging = Logging()
 git_exe_path = get_exe_path('git')
 
 
@@ -270,7 +269,7 @@ class CommittedFile(object):
                 self.object_id,
             ])
         except Exception as e:
-            logging.write("get_file_size Error: %s" % e)
+            logging.info("get_file_size Error: %s" % e)
             output = -1
         return int(output)
 

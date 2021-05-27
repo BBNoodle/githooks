@@ -4,22 +4,11 @@ Copyright (c) 2021 Scott Lau
 Portions Copyright (c) 2021 InnoGames GmbH
 Portions Copyright (c) 2021 Emre Hasegeli
 """
+import logging
 import datetime as dt
 
 
 from enum import IntEnum
-
-
-class Logging:
-    def __init__(self):
-        self._dt = dt.datetime.today().strftime('%Y%m%d')
-
-    def write(self, log_str):
-        with open(f"{self._dt}-pre-receive.log", "a+", encoding="utf-8") as f_log:
-            f_log.write(log_str)
-
-
-logging = Logging()
 
 
 class CheckState(IntEnum):
@@ -104,10 +93,10 @@ class BaseCheck:
         for severity, problem in self.evaluate_problems():
             if not header_printed:
                 print('{} === {} ==='.format(BaseCheck.ERROR_MSG_PREFIX, self))
-                logging.write('{} === {} ===\n'.format(BaseCheck.NOW_TIME, self))
+                logging.info('{} === {} ===\n'.format(BaseCheck.NOW_TIME, self))
                 header_printed = True
             print('{} {}: {}'.format(BaseCheck.ERROR_MSG_PREFIX, severity.translate(), problem))
-            logging.write('{} {}: {}\n'.format(BaseCheck.NOW_TIME, severity.translate(), problem))
+            logging.info('{} {}: {}\n'.format(BaseCheck.NOW_TIME, severity.translate(), problem))
         # if header_printed:
         #     print('{}'.format(BaseCheck.ERROR_MSG_PREFIX))
         self.set_state(CheckState.DONE)

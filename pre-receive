@@ -12,5 +12,7 @@ Portions Copyright (c) 2021 Emre Hasegeli
 from sys import exit
 
 from githooks import main
+from githooks.log_utils import log_init
 
+log_init()
 exit(main())
