@@ -11,7 +11,7 @@ from logging.handlers import TimedRotatingFileHandler
 
 LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO').upper()
 LOG_FILE_NAME = os.environ.get('LOG_FILE_NAME', 'logs/pre-receive.log')
-LOG_FORMAT = os.environ.get('LOG_FORMAT', '%(asction)s [%(levelname)s]: %(message)s')
+LOG_FORMAT = os.environ.get('LOG_FORMAT', '%(asctime)s [%(levelname)s]: %(message)s')
 
 
 def ensure_dir(file_path):
