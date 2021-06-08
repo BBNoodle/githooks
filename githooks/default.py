@@ -18,7 +18,7 @@ DEFAULT_CONFIG = {
         # 二进制文件类型黑名单（逗号分隔的后缀名清单，无需带.，通过后缀名控制）
         "binary_file_illegal_suffixes": "jar, doc, xls, xlsx, docx",
         # 二进制文件类型白名单（逗号分隔的后缀名清单，无需带.，通过后缀名控制）
-        "binary_file_legitimate_suffixes": "a, framework",
+        "binary_file_legitimate_suffixes": "a, framework, so",
         # 二进制文件白名单（逗号分隔的区分大小写的文件名列表，这些二进制文件允许提交）
         "legal_binary_filenames": "gradle-wrapper.jar,maven-wrapper.jar",
 
