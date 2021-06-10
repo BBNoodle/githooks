@@ -74,7 +74,7 @@ class CommittedFileExtensionCheck(CommittedFileCheck):
         extension = self.committed_file.get_extension()
         if extension in illegal_suffixes_list:
             yield (
-                Severity.WARNING,
+                Severity.ERROR,
                 '提交 {} 的文件 {} 在不允许的提交文件后缀名清单中 {}'.format(
                     self.committed_file.commit,
                     self.committed_file.path,
