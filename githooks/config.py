@@ -19,5 +19,5 @@ try:
 except Exception as e:
     stdout.flush()
     print(file=stderr)
-    print('{} failed to read configuration: {}'.format(BaseCheck.ERROR_MSG_PREFIX, e), file=stderr)
+    print('{} failed to read configuration: {}'.format(BaseCheck.ERROR_MSG_PREFIX % "ERROR", e), file=stderr)
     print_exc()

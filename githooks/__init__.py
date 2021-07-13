@@ -145,7 +145,7 @@ def main():
         # appearing in between them.
         stdout.flush()
         print(file=stderr)
-        print('{} An error occurred: {}'.format(BaseCheck.ERROR_MSG_PREFIX, e), file=stderr)
+        print('{} An error occurred: {}'.format(BaseCheck.ERROR_MSG_PREFIX % "ERROR", e), file=stderr)
         print_exc()
         return 1
     else:
