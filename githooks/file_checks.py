@@ -73,10 +73,11 @@ class CommittedFileExtensionCheck(CommittedFileCheck):
             return
         extension = self.committed_file.get_extension()
 
-        project_name = self.committed_file.get_projects()
-        projects_name = config.get("commit_check.unrestricted_projects")
-        projects = projects_name.split(",")
-        if extension in illegal_suffixes_list and project_name not in projects:
+        # project_name = self.committed_file.get_projects()
+        # projects_name = config.get("commit_check.unrestricted_projects")
+        # projects = projects_name.split(",")
+        # if extension in illegal_suffixes_list and project_name not in projects:
+        if extension in illegal_suffixes_list:
             yield (
                 Severity.ERROR,
                 '提交 {} 的文件 {} 在不允许的提交文件后缀名清单中 {}'.format(
