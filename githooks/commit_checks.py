@@ -206,5 +206,9 @@ class CheckBinaryFiles(CommitCheck):
     """Check whether binary files exists on a single commit"""
 
     def get_problems(self):
-        for binary_file in self.commit.get_binary_files():
-            yield Severity.WARNING, '文件 {} 是二进制文件'.format(binary_file)
+        project_name = self.commit.get_projects()
+        projects_name = config.get("commit_check.unrestricted_projects")
+        projects = projects_name.split(",")
+        if project_name not in projects:
+            for binary_file in self.commit.get_binary_files():
+                yield Severity.WARNING, '文件 {} 是二进制文件'.format(binary_file)

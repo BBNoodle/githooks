@@ -37,6 +37,7 @@ class Commit(object):
         self.commit_id = commit_id
         self.commit_list = commit_list
         self.content_fetched = False
+        self.project_fetched = False
         self.changed_files = None
         self.binary_files = None
 
@@ -89,6 +90,23 @@ class Commit(object):
         for line in lines:
             self._message_lines.append(decode_str(line))
         self.content_fetched = True
+
+    def _get_project_info(self):
+        content = check_output(
+            [git_exe_path, 'remote', '-v']
+        )
+        self._projects = None
+        lines = iter(content.splitlines())
+        temp = [str(_, encoding='utf-8') for _ in lines if "push" in str(_, encoding='utf-8')][0]
+        line = temp.replace(" ", "\t").split("\t")[1]
+        project_name = line.split("/")[-1]
+        self._projects = project_name.split(".")[0]
+        self.project_fetched = True
+
+    def get_projects(self):
+        if not self.project_fetched:
+            self._get_project_info()
+        return self._projects
 
     def get_parents(self):
         if not self.content_fetched:
@@ -214,6 +232,7 @@ class CommittedFile(object):
         self.content = None
         # sc add object id
         self.object_id = object_id
+        self.project_fetched = False
 
     def __str__(self):
         return '文件 {} 位于提交 {}'.format(self.path, self.commit)
@@ -224,6 +243,23 @@ class CommittedFile(object):
             self.path == other.path and
             self.commit == other.commit
         )
+
+    def _get_project_info(self):
+        content = check_output(
+            [git_exe_path, 'remote', '-v']
+        )
+        self._projects = None
+        lines = iter(content.splitlines())
+        temp = [str(_, encoding='utf-8') for _ in lines if "push" in str(_, encoding='utf-8')][0]
+        line = temp.replace(" ", "\t").split("\t")[1]
+        project_name = line.split("/")[-1]
+        self._projects = project_name.split(".")[0]
+        self.project_fetched = True
+
+    def get_projects(self):
+        if not self.project_fetched:
+            self._get_project_info()
+        return self._projects
 
     def exists(self):
         return bool(check_output([

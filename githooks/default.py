@@ -21,6 +21,8 @@ DEFAULT_CONFIG = {
         "binary_file_legitimate_suffixes": "a,framework,so",
         # 二进制文件白名单（逗号分隔的区分大小写的文件名列表，这些二进制文件允许提交）
         "legal_binary_filenames": "gradle-wrapper.jar,maven-wrapper.jar",
+        # 工程白名单
+        "unrestricted_projects": "gitlab-extraction,githooks",
 
         # 提交文件最大大小(10MB)
         "commit_file_max_size": 10485760,
